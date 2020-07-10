@@ -1,4 +1,4 @@
-Wattpad Books Scraper: (on going project)
+Wattpad Books Scraper:
 
 A Python scraper using Scrapy.\
 The scraper is suppose to  login into the wattpad account of the username and password provided and scrap the data from teh book 
@@ -11,10 +11,7 @@ Input:
 
 Working part:
 * Spider is logging into wattpad.
-* Spider is crawling till the writw >> Mystories >> book >> chapters
+* Spider is crawling till the write >> Mystories >> book >> chapters
 * Spider is retrieving the chapter text and title for the book selected.
-
-Remaining:
-* Cleaning of the chapter data retrieved to increase readability.
-* To develop an interface to enter username and password along with the name of the book to be scraped.
-* Exporting book to a readable text format.
+* Chapter body is cleaned of the html tags
+* The dictionary with chapter id, title and body is yielded. 
