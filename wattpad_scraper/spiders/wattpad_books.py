@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+from abc import ABC
+
 import scrapy
 import json
-import collections
+import re
+from _collections import OrderedDict
 from scrapy.http import FormRequest
 
 
@@ -11,7 +14,6 @@ class WattpadBooksSpider(scrapy.Spider):
     start_urls = ['https://www.wattpad.com/login']
     CHAPTER_URL = 'https://www.wattpad.com/apiv2/storytext?id={}&output=json'
     book = 'fates intertwined'
-    print(book)
 
     def parse(self, response):
         yield FormRequest('https://www.wattpad.com/login?nextUrl=%2Fhome',
@@ -53,7 +55,9 @@ class WattpadBooksSpider(scrapy.Spider):
                              meta={'chapter_data': {'id': int(chapter_url.split('/')[-1]), 'title': chapter_title}})
 
     def parse_chapter_body(self, response):
-        body = json.loads(response.body)
+        chapter_body = ''
+        cleanup_re = re.compile(r'<[^>]+>')
+        chapter_text = json.loads(response.body)['text']
         chapter_data = response.meta['chapter_data']
-        chapter_data['chapter_body'] = body['text']
+        chapter_data['chapter_body'] = cleanup_re.sub('', chapter_text)
         yield chapter_data
