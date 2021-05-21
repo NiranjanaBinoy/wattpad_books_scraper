@@ -19,8 +19,8 @@ class WattpadBooksSpider(scrapy.Spider):
     def parse(self, response):
         yield FormRequest('https://www.wattpad.com/login?nextUrl=%2Fhome',
                           formdata={
-                              'username': 'AnnaBella201',
-                              'password': 'MyWolverin'
+                              'username': 'username',
+                              'password': 'password'
                           },
                           callback=self.parse_logged_in
                           )
